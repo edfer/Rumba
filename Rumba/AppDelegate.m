@@ -24,15 +24,28 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    EFBStyles *stylesObj = [[EFBStyles alloc]init];
+    EFBStylesCount *stylesObj = [[EFBStylesCount alloc]init];
     
-    //EFBStylesTableViewController *stylesVC = [[EFBStylesTableViewController alloc] initWithModel
+    EFBStylesTableViewController *stylesVC = [[EFBStylesTableViewController alloc] initWithModel:stylesObj
+                                                                                       withStyle:UITableViewStylePlain];
     
-    EFBStyleViewController *styleVC = [[EFBStyleViewController alloc]initWithModel:stylesObj];
+    EFBStyleViewController *styleVC = [[EFBStyleViewController alloc]initWithModel:[stylesObj tumbaoStyleAtIndex:0]];
     
-    UINavigationController *styleNav = [[UINavigationController alloc] initWithRootViewController:styleVC];
+    UINavigationController *stylesNav = [[UINavigationController alloc] init];
+    [stylesNav pushViewController:stylesVC
+                        animated:NO];
     
-    self.window.rootViewController = styleNav;
+    UINavigationController *styleNav = [[UINavigationController alloc]init];
+    [styleNav pushViewController:styleVC
+                        animated:NO];
+    
+    UISplitViewController *splitVC = [[UISplitViewController alloc]init];
+    [splitVC setViewControllers:@[stylesNav, styleNav]];
+    
+    splitVC.delegate = styleVC;
+    stylesVC.delegate = styleVC;
+    
+    self.window.rootViewController = splitVC;
     
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];

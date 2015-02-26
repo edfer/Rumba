@@ -12,6 +12,8 @@
 
 @property (strong, nonatomic) NSArray *tumbao;
 @property (strong, nonatomic) NSArray *rumba;
+@property (strong, nonatomic) NSArray *bomba;
+@property (strong, nonatomic) NSArray *plena;
 
 @end
 
@@ -25,6 +27,16 @@
 -(NSUInteger)rumbaCount{
     
     return [self.rumba count];
+}
+
+-(NSUInteger)bombaCount{
+    
+    return [self.bomba count];
+}
+
+-(NSUInteger)plenaCount{
+    
+    return [self.plena count];
 }
 
 #pragma mark - modelos
@@ -61,8 +73,19 @@
                                                     history:@"Primera fase de la Rumba"
                                                     webLink:yambuWebURL];
         
+        EFBStyles *rumbaColombia = [[EFBStyles alloc]initWithRythmName:@"Rumba Colombia"];
+        
+        EFBStyles *guaguanco =[[EFBStyles alloc]initWithRythmName:@"Guaguanco"];
+        
+        EFBStyles *bomba = [[EFBStyles alloc]initWithRythmName:@"Bomba"];
+        
+        EFBStyles *plena = [[EFBStyles alloc]initWithRythmName:@"Plena"];
+        
         self.tumbao = @[tumbaoFile];
-        self.rumba = @[yambuFile];
+        self.rumba = @[yambuFile, rumbaColombia, guaguanco];
+        self.bomba = @[bomba];
+        self.plena = @[plena];
+        
     }
     return self;
     
@@ -81,4 +104,20 @@
    return  [self.rumba objectAtIndex:index];
     
 }
+
+
+-(EFBStyles *)bombaStyleAtIndex:(NSUInteger)index{
+    
+    return [self.bomba objectAtIndex:index];
+    
+}
+-(EFBStyles *)plenaStyleAtIndex:(NSUInteger)index{
+    
+    return  [self.plena objectAtIndex:index];
+
+}
+
+
+
+
 @end

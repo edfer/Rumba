@@ -34,4 +34,5 @@
                 history:(NSString *) theHistory
                 webLink:(NSURL *)newLink;
 
+-(id) initWithRythmName:(NSString *) aName;
 @end

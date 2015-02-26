@@ -11,12 +11,6 @@
 @implementation EFBStyles
 
 
-
-
-
-
-
-
 // Class method.
 
 +(instancetype) newStyleRythmName:(NSString *) aName
@@ -54,5 +48,15 @@
     
     return self;
 }
+
+-(id) initWithRythmName:(NSString *) aName{
+    
+    return [self initWithRythmName:aName
+                       soundSample:nil
+                             photo:nil
+                           history:nil
+                           webLink:nil];
+}
+
 
 @end

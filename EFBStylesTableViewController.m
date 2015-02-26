@@ -8,6 +8,7 @@
 
 #import "EFBStylesTableViewController.h"
 #import "EFBStylesCount.h"
+#import "EFBStyleViewController.h"
 
 @interface EFBStylesTableViewController ()
 
@@ -23,6 +24,7 @@
     if (self =[super initWithStyle:aStyle]) {
         _model = aModel;
         self.title = @"Suenan los cueros";
+        
     }
     
     return self;
@@ -46,29 +48,126 @@
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
-}
-
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+-(NSString *)tableView:(UITableView *)tableView
+titleForHeaderInSection:(NSInteger)section{
     
-    // Configure the cell...
+    if (section == TUMBAO) {
+        return @"El ritmo comodín";
+    }else if (section == RUMBA){
+        return @"La Rumba y sus tres etapas";
+    }else if (section == BOMBA){
+        return @"La Bomba puertorriqueña";
+    }else if (section == PLENA){
+        return @"La Plena puertorriqueña";
+    }
+    return 0;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+
+    
+    return 5;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section {
+    
+    if (section == TUMBAO) {
+        return self.model.tumbaoCount;
+    }else if (section == RUMBA){
+        return self.model.rumbaCount;
+    }else if (section == BOMBA){
+        return self.model.bombaCount;
+    }else if (section == PLENA){
+        return self.model.plenaCount;
+    }
+    return 0;
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    static NSString *cellId = @"Cell";
+    
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle
+                                     reuseIdentifier:cellId];
+    }
+    
+    EFBStyles * aRythm = nil;
+    
+    if (indexPath.section == TUMBAO) {
+        aRythm = [self.model tumbaoStyleAtIndex:indexPath.row];
+    }else if (indexPath.section == RUMBA){
+        aRythm = [self.model rumbaStyleAtIndex:indexPath.row];
+    }else if (indexPath.section == BOMBA){
+        aRythm = [self.model bombaStyleAtIndex:indexPath.row];
+    }else if (indexPath.section == PLENA){
+        aRythm = [self.model plenaStyleAtIndex:indexPath.row];
+    }
+    
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle
+                                     reuseIdentifier:cellId];
+    }
+    
+    cell.imageView.image = aRythm.photo;
+    cell.textLabel.text = aRythm.rythmName;
+    cell.detailTextLabel.text = aRythm.rythmName;
+    cell.detailTextLabel.shadowColor = UITableViewRowAnimationFade;
     
     return cell;
 }
-*/
 
-/*
+
+#pragma mark - table delegate
+-(void) tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    //Averiguar el modelo
+    EFBStyles *aRythm = nil;
+    
+    if (indexPath.section == TUMBAO) {
+        aRythm = [self.model tumbaoStyleAtIndex:indexPath.row];
+    }else if (indexPath.section == RUMBA){
+        aRythm = [self.model rumbaStyleAtIndex:indexPath.row];
+    }else if (indexPath.section == BOMBA){
+        aRythm = [self.model bombaStyleAtIndex:indexPath.row];
+    }else{
+        aRythm = [self.model plenaStyleAtIndex:indexPath.row];
+    }
+    
+    [self.delegate stylesTableViewController:self
+                              didSelectStyle:aRythm];
+    
+    NSNotification *n =[NSNotification notificationWithName:STYLE_NOTIFICATION_NAME
+                                                     object:self
+                                                   userInfo:@{STYLE_KEY:aRythm}];
+    
+    [[NSNotificationCenter defaultCenter]postNotification:n];
+    
+}
+         
+#pragma mark - EFBStylesTableViewControllerDelegate
+         
+-(void) stylesTableViewController:(EFBStylesTableViewController *)stylesCountVC
+                   didSelectStyle:(EFBStyles *)model{
+    
+    EFBStyleViewController *styleVC = [[EFBStyleViewController alloc]initWithModel:model];
+    
+    [self.navigationController pushViewController:styleVC
+                                         animated:YES];
+    
+    
+}
+    
+    
+    
+    
+    /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     // Return NO if you do not want the specified item to be editable.
@@ -113,3 +212,5 @@
 */
 
 @end
+
+

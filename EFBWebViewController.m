@@ -7,6 +7,7 @@
 //
 
 #import "EFBWebViewController.h"
+#import "EFBStylesTableViewController.h"
 
 @interface EFBWebViewController ()
 
@@ -26,9 +27,46 @@
     
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    
+    [nc addObserver:self
+           selector:@selector(notifyThatRythmDidChange:)
+               name:STYLE_NOTIFICATION_NAME
+             object:nil];
+    
+    self.webView.delegate = self;
+    
+    [self syncWebModelWithView];
+
+
+}
+///*
+-(BOOL)            webView:(UIWebView *)webView
+shouldStartLoadWithRequest:(NSURLRequest *)request
+            navigationType:(UIWebViewNavigationType)navigationType{
+    
+    if ((navigationType == UIWebViewNavigationTypeLinkClicked)||(UIWebViewNavigationTypeFormSubmitted)) {
+        return NO;
+    }else{
+        return YES;
+    }
+}
+//*/
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    
+    [nc removeObserver:self];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -36,14 +74,33 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
+#pragma mark - Notifications
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(void)notifyThatRythmDidChange:(NSNotification *)n{
+    
+    EFBStyles *newRythm = [n.userInfo objectForKey:STYLE_KEY];
+    
+    self.model = newRythm;
+    
+    [self syncWebModelWithView];
+    
 }
-*/
+
+#pragma mark - Utils
+
+-(void) syncWebModelWithView{
+    
+    NSURLRequest *r = [NSURLRequest
+                       requestWithURL:self.model.webLink];
+    
+    [self.webView loadRequest:r];
+}
+
+
+
+
+
+
+
 
 @end

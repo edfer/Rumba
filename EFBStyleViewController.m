@@ -10,30 +10,35 @@
 #import "SamplePlayer.h"
 #import "EFBWebViewController.h"
 
+
 @interface EFBStyleViewController ()
 
 @end
 
 @implementation EFBStyleViewController
 
--(id) initWithModel:(EFBStyles *)model{
+-(id) initWithModel:(EFBStyles *)aModel{
     
-    if (self = [super initWithNibName:nil bundle:nil]) {
-        _model = model;
-        self.title = model.rythmName;
+    if (self = [super initWithNibName:nil
+                               bundle:nil]) {
+        _model = aModel;
+        self.title = self.model.rythmName;
+        
         
     }
     return self;
 }
 
+/*
+ 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
-
+*/
 -(void) viewWillAppear:(BOOL)animated{
     
-    [self viewWillAppear:animated];
+    [super viewWillAppear:animated];
     
     [self syncModelWithView];
 }
@@ -57,7 +62,7 @@
     EFBWebViewController * webVC = [[EFBWebViewController alloc]initWithModel:self.model];
     
     [self.navigationController pushViewController:webVC
-                                         animated:YES];
+                                         animated:NO];
     
 }
 
@@ -67,8 +72,32 @@
     self.historyView.text = self.model.history;
     self.photoView.image = self.model.photo;
     
+    [self.historyView setNumberOfLines:0];
+    
 }
 
+#pragma mark - splitVC Delegate
+
+-(void) splitViewController:(UISplitViewController *)svc
+    willChangeToDisplayMode:(UISplitViewControllerDisplayMode)displayMode{
+    
+    if (displayMode == UISplitViewControllerDisplayModePrimaryHidden) {
+        self.navigationItem.rightBarButtonItem = svc.displayModeButtonItem;
+    }else if (displayMode == UISplitViewControllerDisplayModeAllVisible){
+        self.navigationItem.rightBarButtonItem = nil;
+    }
+    
+}
+
+#pragma mark - stylesTableViewControllerDelegate
+-(void) stylesTableViewController:(EFBStylesTableViewController *)stylesCountVC
+                   didSelectStyle:(EFBStyles *)model{
+    
+    self.model = model;
+    //self.title = model.rythmName;
+    [self syncModelWithView];
+    
+}
 /*
 #pragma mark - Navigation
 

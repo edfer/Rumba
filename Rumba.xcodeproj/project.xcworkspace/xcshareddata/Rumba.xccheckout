@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>1B1830FE-4F47-4308-B3D4-EE7CE0EA4539</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Rumba</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>01305353E7C9C1E38A44348B800DD3F05894A37A</key>
+		<string>https://github.com/edfer/Rumba.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Rumba.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>01305353E7C9C1E38A44348B800DD3F05894A37A</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/edfer/Rumba.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>01305353E7C9C1E38A44348B800DD3F05894A37A</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>01305353E7C9C1E38A44348B800DD3F05894A37A</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Rumba</string>
+		</dict>
+	</array>
+</dict>
+</plist>

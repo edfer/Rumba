@@ -9,7 +9,7 @@
 @import UIKit;
 #import "EFBStyles.h"
 
-@interface EFBWebViewController : UIViewController
+@interface EFBWebViewController : UIViewController <UIWebViewDelegate>
 
 @property (strong, nonatomic) EFBStyles *model;
 @property (weak, nonatomic) IBOutlet UIWebView *webView;

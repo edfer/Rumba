@@ -8,9 +8,10 @@
 
 @import UIKit;
 #import "EFBStyles.h"
-@class SamplePlayer;
+#import "SamplePlayer.h"
+#import "EFBStylesTableViewController.h"
 
-@interface EFBStyleViewController : UIViewController
+@interface EFBStyleViewController : UIViewController <UISplitViewControllerDelegate, StylesTableViewControllerDelegate>
 
 @property (strong, nonatomic) EFBStyles *model;
 
@@ -19,7 +20,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *photoView;
 @property (strong, nonatomic) SamplePlayer *player;
 
--(id) initWithModel:(EFBStyles *)model;
+-(id) initWithModel:(EFBStyles *)aModel;
 
 -(IBAction)playSampleFile:(id)sender;
 -(IBAction)displayWebContent:(id)sender;

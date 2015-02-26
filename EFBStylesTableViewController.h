@@ -9,6 +9,14 @@
 @import UIKit;
 #import "EFBStylesCount.h"
 
+#define TUMBAO 0
+#define RUMBA 1
+#define BOMBA 2
+#define PLENA 3
+
+#define STYLE_NOTIFICATION_NAME @"styleName"
+#define STYLE_KEY @"key"
+
 @class EFBStylesTableViewController;
 
 
@@ -19,7 +27,7 @@
 
 @end
 
-@interface EFBStylesTableViewController : UITableViewController
+@interface EFBStylesTableViewController : UITableViewController <StylesTableViewControllerDelegate>
 
 @property (strong, nonatomic) EFBStylesCount *model;
 @property (weak, nonatomic) id <StylesTableViewControllerDelegate> delegate;

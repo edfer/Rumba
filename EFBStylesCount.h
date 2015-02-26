@@ -13,12 +13,14 @@
 
 @property (readonly, nonatomic) NSUInteger tumbaoCount;
 @property (readonly, nonatomic) NSUInteger rumbaCount;
-
+@property (readonly, nonatomic) NSUInteger bombaCount;
+@property (readonly, nonatomic) NSUInteger plenaCount;
 
 
 -(EFBStyles *)tumbaoStyleAtIndex:(NSUInteger)index;
 -(EFBStyles *)rumbaStyleAtIndex:(NSUInteger)index;
-
+-(EFBStyles *)bombaStyleAtIndex:(NSUInteger)index;
+-(EFBStyles *)plenaStyleAtIndex:(NSUInteger)index;
 
 
 @end
